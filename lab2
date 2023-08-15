@@ -63,6 +63,78 @@ echo "Binary conversion of $number1: $binary_num1"
 echo "Binary conversion of $number2: $binary_num2"
 echo "XOR of $binary_num1 and $binary_num2: $xor_result"
 
+/////////////////////////////////
+c++ code
+
+#include <iostream>
+#include <vector>
+
+// Function to convert decimal to binary
+std::vector<int> decimalToBinary(int num) {
+    std::vector<int> binary;
+    while (num > 0) {
+        binary.push_back(num % 2);
+        num /= 2;
+    }
+    return binary;
+}
+
+// Function to calculate XOR of two binary numbers
+std::vector<int> calculateXOR(const std::vector<int>& binary1, const std::vector<int>& binary2) {
+    std::vector<int> xorResult;
+    int maxLength = std::max(binary1.size(), binary2.size());
+
+    for (int i = 0; i < maxLength; i++) {
+        int bit1 = (i < binary1.size()) ? binary1[i] : 0;
+        int bit2 = (i < binary2.size()) ? binary2[i] : 0;
+        xorResult.push_back(bit1 != bit2);
+    }
+
+    return xorResult;
+}
+
+int main() {
+    int num1, num2;
+
+    // Input the two numbers
+    std::cout << "Enter the first number: ";
+    std::cin >> num1;
+
+    std::cout << "Enter the second number: ";
+    std::cin >> num2;
+
+    // Convert the numbers to binary form
+    std::vector<int> binary1 = decimalToBinary(num1);
+    std::vector<int> binary2 = decimalToBinary(num2);
+
+    // Calculate the XOR of the two binary numbers
+    std::vector<int> xorResult = calculateXOR(binary1, binary2);
+
+    // Convert XOR result to decimal
+    int decimalXOR = 0;
+    int power = 1;
+    for (int i = 0; i < xorResult.size(); i++) {
+        decimalXOR += xorResult[i] * power;
+        power *= 2;
+    }
+
+    std::cout << "Binary form of " << num1 << ": ";
+    for (int i = binary1.size() - 1; i >= 0; i--) {
+        std::cout << binary1[i];
+    }
+    std::cout << std::endl;
+
+    std::cout << "Binary form of " << num2 << ": ";
+    for (int i = binary2.size() - 1; i >= 0; i--) {
+        std::cout << binary2[i];
+    }
+    std::cout << std::endl;
+
+    std::cout << "XOR of " << num1 << " and " << num2 << " is: " << decimalXOR << std::endl;
+
+    return 0;
+}
+
 
 
 ***********************************************************
